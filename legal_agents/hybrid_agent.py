@@ -1,15 +1,14 @@
-from langchain.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms import Ollama
-from langchain.prompts import PromptTemplate
-from langchain.chains import RetrievalQA
-from tools.web_search_tool import get_web_search_tool
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.llms import Ollama
+from langchain_core.prompts import PromptTemplate
 from langgraph.graph import StateGraph, END
-from typing import Dict, Any
+from typing import Dict, Any, TypedDict
+from tools.web_search_tool import get_web_search_tool
 
 def initialize_hybrid_agent():
     """
-    Initialize the hybrid RAG agent with vector store and web search.
+    Initialize the hybrid RAG agent with vector store and web search using LangGraph.
     """
     # Initialize embeddings
     embeddings = HuggingFaceEmbeddings(
@@ -24,8 +23,8 @@ def initialize_hybrid_agent():
         persist_directory="./chroma_db"
     )
     
-    # Initialize LLM
-    llm = Ollama(model="navarasa", base_url="http://localhost:11434")
+    # Initialize LLM (Mistral)
+    llm = Ollama(model="mistral", base_url="http://localhost:11434")
     
     # Define prompt template
     prompt = PromptTemplate(
@@ -33,35 +32,45 @@ def initialize_hybrid_agent():
         template="You are a legal assistant for rural Karnataka. Answer in simple terms (ELI5) in {language}. Context: {context}\nQuestion: {question}\nAnswer:"
     )
     
-    # Initialize RetrievalQA chain
-    qa_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",
-        retriever=vector_db.as_retriever(search_kwargs={"k": 3}),
-        chain_type_kwargs={"prompt": prompt}
-    )
-    
-    # Define LangGraph workflow
-    class AgentState:
+    # Define LangGraph state
+    class AgentState(TypedDict):
         query: str
         language: str
         answer: str
         sources: list
     
-    def retrieve_from_vector_db(state: AgentState) -> Dict[str, Any]:
-        docs = vector_db.similarity_search(state.query, k=3)
+    # Define nodes
+    def retrieve_from_vector_db(state: AgentState) -> AgentState:
+        docs = vector_db.similarity_search(state["query"], k=3)
         if docs and max(docs, key=lambda x: x.metadata.get("score", 0)).metadata.get("score", 0) > 0.7:
             context = "\n".join([doc.page_content for doc in docs])
-            answer = qa_chain.run(query=state.query, context=context, language=state.language)
-            return {"answer": answer, "sources": [doc.metadata["source"] for doc in docs]}
-        return {"answer": None, "sources": []}
+            prompt_text = prompt.format(context=context, question=state["query"], language=state["language"])
+            answer = llm.invoke(prompt_text)
+            return {
+                "query": state["query"],
+                "language": state["language"],
+                "answer": answer,
+                "sources": [doc.metadata["source"] for doc in docs]
+            }
+        return {
+            "query": state["query"],
+            "language": state["language"],
+            "answer": None,
+            "sources": []
+        }
     
-    def web_search(state: AgentState) -> Dict[str, Any]:
-        if not state.answer:
+    def web_search(state: AgentState) -> AgentState:
+        if not state["answer"]:
             web_tool = get_web_search_tool()
-            context = web_tool.func(state.query)
-            answer = qa_chain.run(query=state.query, context=context, language=state.language)
-            return {"answer": answer, "sources": ["web"]}
+            context = web_tool.func(state["query"])
+            prompt_text = prompt.format(context=context, question=state["query"], language=state["language"])
+            answer = llm.invoke(prompt_text)
+            return {
+                "query": state["query"],
+                "language": state["language"],
+                "answer": answer,
+                "sources": ["web"]
+            }
         return state
     
     # Build LangGraph workflow

@@ -1,5 +1,5 @@
 from tavily import TavilyClient
-from langchain.tools import Tool
+from langchain_core.tools import Tool
 import os
 from dotenv import load_dotenv
 import requests
@@ -11,7 +11,10 @@ def tavily_search(query: str, max_results: int = 5) -> str:
     """
     Perform web search using Tavily API.
     """
-    tavily = TavilyClient(api_key=os.getenv("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"))
+    api_key = os.getenv("TAVILY_API_KEY")
+    if not api_key:
+        raise ValueError("TAVILY_API_KEY environment variable not set")
+    tavily = TavilyClient(api_key=api_key)
     results = tavily.search(query=query, max_results=max_results)
     content = "\n".join([f"[{r['url']}]: {r['content']}" for r in results["results"]])
     return content

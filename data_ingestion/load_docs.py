@@ -1,6 +1,6 @@
 import os
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from typing import List, Dict
 from pathlib import Path
 
@@ -30,7 +30,7 @@ def load_and_chunk_documents(data_dir: str, taluk: str = None, pincode: str = No
     return documents
 
 if __name__ == "__main__":
-    data_dir = "./legal_documents"  # Directory containing Karnataka legal PDFs
+    data_dir = "./legal_documents"
     os.makedirs(data_dir, exist_ok=True)
     docs = load_and_chunk_documents(data_dir, taluk="Mysuru", pincode="570001")
     print(f"Loaded {len(docs)} document chunks.")

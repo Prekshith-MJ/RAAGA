@@ -1,9 +1,11 @@
 import streamlit as st
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from legal_agents.hybrid_agent import initialize_hybrid_agent
 from data_ingestion.load_docs import load_and_chunk_documents
 from vectorstore.init_vector_db import initialize_vector_db
 from gtts import gTTS
-import os
 from pathlib import Path
 
 st.set_page_config(page_title="Karnataka Legal Assistant", layout="wide")

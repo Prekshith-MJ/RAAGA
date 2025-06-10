@@ -1,12 +1,57 @@
-langchain==0.2.16 
-langgraph==0.2.14 
-chromadb==0.5.5 
-sentence-transformers==3.0.1 
-streamlit==1.39.0 
-tavily-python==0.5.0 
-pypdf==4.3.1 
-python-dotenv==1.0.1 
-tesseract
-gtts==2.5.3 
-numpy==1.26.4 
-ollama==0.3.2
+langgraph
+langgraph-sdk
+langchain-core
+langsmith
+tavily-python
+streamlit
+gtts
+ollama
+requests
+beautifulsoup4
+sentence-transformers
+chromadb
+pypdf
+python-dotenv
+langchain_community
+
+# Optional dependencies
+langchain-openai
+langchain-ollama
+# For testing
+pytest
+# For development
+black
+# For documentation
+sphinx
+# For deployment
+docker
+# For visualization
+streamlit
+# For data processing
+pandas
+# For machine learning
+scikit-learn
+# For web scraping
+beautifulsoup4
+# For natural language processing
+nltk
+# For database interaction
+sqlalchemy
+# For API interaction
+requests
+# For environment variable management
+python-dotenv
+# For PDF processing
+pypdf
+# For vector databases
+chromadb
+# For sentence embeddings
+sentence-transformers   
+# For text-to-speech
+gtts
+# For web frameworks
+flask
+# For task scheduling
+celery
+# For caching
+redis
