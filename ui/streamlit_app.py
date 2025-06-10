@@ -1,5 +1,5 @@
 import streamlit as st
-from agents.hybrid_agent import initialize_hybrid_agent
+from legal_agents.hybrid_agent import initialize_hybrid_agent
 from data_ingestion.load_docs import load_and_chunk_documents
 from vectorstore.init_vector_db import initialize_vector_db
 from gtts import gTTS

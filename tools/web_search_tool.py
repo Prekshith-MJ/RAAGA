@@ -11,7 +11,7 @@ def tavily_search(query: str, max_results: int = 5) -> str:
     """
     Perform web search using Tavily API.
     """
-    tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+    tavily = TavilyClient(api_key=os.getenv("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"))
     results = tavily.search(query=query, max_results=max_results)
     content = "\n".join([f"[{r['url']}]: {r['content']}" for r in results["results"]])
     return content
