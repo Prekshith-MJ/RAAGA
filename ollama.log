@@ -1,0 +1,29 @@
+2025-06-11 14:21:23,701 - Initializing LLM with model: mistral
+2025-06-11 14:21:41,715 - Successfully initialized LLM with model: mistral
+2025-06-11 14:21:48,227 - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-06-11 14:21:53,564 - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-11 14:23:33,939 - Query: Karnataka land laws, Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.3779849112033844), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4511831998825073), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.46233391761779785)]
+2025-06-11 14:23:33,939 - Relevant docs after threshold (0.9): 0
+2025-06-11 14:23:33,939 - No relevant documents found, falling back to web search.
+2025-06-11 14:26:26,815 - Query: Section 79A, Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.9770183563232422), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 1.0049304962158203), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 1.0226541757583618)]
+2025-06-11 14:26:26,816 - Relevant docs after threshold (0.9): 3
+2025-06-11 14:26:26,816 - Using vector store documents for answer.
+2025-06-11 14:31:04,881 - Query: What does Section 79A of the Karnataka Land Reforms Act say about land acquisition?”   please answer in a paragraph , Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.45806339383125305), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4581645429134369), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4706224799156189)]
+2025-06-11 14:31:04,881 - Relevant docs after threshold (0.9): 0
+2025-06-11 14:31:04,881 - No relevant documents found, falling back to web search.
+2025-06-11 14:32:11,447 - Query: What does Section 79A of the Karnataka Land Reforms Act say about land acquisition?”  , Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.40106019377708435), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.45376092195510864), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.45492640137672424)]
+2025-06-11 14:32:11,447 - Relevant docs after threshold (0.9): 0
+2025-06-11 14:32:11,447 - No relevant documents found, falling back to web search.
+2025-06-11 14:37:01,476 - Query: “What does Section 48A of the Karnataka Land Reforms Act say about tenancy claims?”, Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.40350842475891113), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.46168726682662964), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4970710277557373)]
+2025-06-11 14:37:01,476 - Relevant docs after threshold (0.9): 0
+2025-06-11 14:37:01,476 - No relevant documents found, falling back to web search.
+2025-06-11 14:43:08,671 - Initializing LLM with model: mistral
+2025-06-11 14:43:18,471 - Successfully initialized LLM with model: mistral
+2025-06-11 14:43:24,919 - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-06-11 14:43:33,080 - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-11 14:44:16,358 - Query: “What does Section 48A of the Karnataka Land Reforms Act say about tenants applying for ownership?”, Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4380151033401489), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.43947821855545044), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4482501149177551)]
+2025-06-11 14:44:16,358 - Relevant docs after threshold (0.5): 0
+2025-06-11 14:44:16,358 - No relevant documents found, falling back to web search.
+2025-06-11 14:47:51,217 - Query: Section 48A, Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.8991668820381165), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.9142964482307434), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.9366387128829956)]
+2025-06-11 14:47:51,218 - Relevant docs after threshold (0.5): 3
+2025-06-11 14:47:51,218 - Using vector store documents for answer.

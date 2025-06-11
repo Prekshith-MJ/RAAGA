@@ -1,6 +1,8 @@
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.document_loaders import PyPDFLoader
 import os
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from typing import List, Dict
 from pathlib import Path
 
@@ -15,7 +17,7 @@ def load_and_chunk_documents(data_dir: str, taluk: str = None, pincode: str = No
     for file_path in Path(data_dir).glob("*.pdf"):
         loader = PyPDFLoader(str(file_path))
         pages = loader.load()
-        chunks = text_splitter.split_documents(pages)
+        chunks = [chunk for chunk in text_splitter.split_documents(pages) if chunk.page_content.strip()]
         
         # Add metadata to each chunk
         for chunk in chunks:

@@ -1,0 +1,5 @@
+2025-06-11 13:44:09,550 - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-06-11 13:44:15,028 - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-11 13:44:52,709 - Query: Karnataka land laws , Taluk: None, Retrieved docs with scores: [('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.3779849112033844), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.4511831998825073), ('legal_documents/Karnataka Land Reforms Act, 1961.pdf', 0.46233391761779785)]
+2025-06-11 13:44:52,709 - Relevant docs after threshold (0.9): 0
+2025-06-11 13:44:52,709 - No relevant documents found, falling back to web search.

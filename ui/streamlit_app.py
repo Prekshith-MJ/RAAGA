@@ -1,22 +1,29 @@
 import streamlit as st
-from legal_agents.hybrid_agent import initialize_hybrid_agent
-from data_ingestion.load_docs import load_and_chunk_documents
-from vectorstore.init_vector_db import initialize_vector_db
-from gtts import gTTS
 import os
-from pathlib import Path
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from legal_agents.hybrid_agent import initialize_hybrid_agent
+from vectorstore.init_vector_db import initialize_vector_db
+from datetime import datetime
 
 st.set_page_config(page_title="Karnataka Legal Assistant", layout="wide")
 
 def main():
     st.title("Karnataka Legal Assistant")
     
+    # Display indexed PDFs
+    indexed_pdfs = [f for f in os.listdir("./legal_documents") if f.endswith(".pdf")]
+    if indexed_pdfs:
+        st.write(f"Indexed PDFs: {', '.join(indexed_pdfs)}")
+    else:
+        st.write("No PDFs indexed yet.")
+    
     # Initialize agent
-    agent = initialize_hybrid_agent()
+    if "agent" not in st.session_state:
+        st.session_state.agent = initialize_hybrid_agent()
     
     # Language selection
     language = st.selectbox("Select Language", ["English", "Kannada"])
-    lang_code = "en" if language == "English" else "kn"
     
     # Document upload
     uploaded_file = st.file_uploader("Upload Legal Document (PDF)", type="pdf")
@@ -35,21 +42,22 @@ def main():
     
     if st.button("Submit"):
         if user_query:
-            result = agent.invoke({"query": user_query, "language": lang_code})
-            st.write(f"**Answer:** {result['answer']}")
-            st.write(f"**Sources:** {', '.join(result['sources'])}")
-            
-            # Voice output
-            if st.checkbox("Enable Voice Output"):
-                tts = gTTS(text=result['answer'], lang=lang_code)
-                tts.save("output.mp3")
-                st.audio("output.mp3")
+            with st.spinner("Processing..."):
+                result = st.session_state.agent.process_query(user_query, language)
+                st.write(f"**Answer:** {result['answer']}")
+                st.write("**Sources:**")
+                for source in result["sources"]:
+                    st.write(f"- {source}")
+        else:
+            st.error("Please enter a question.")
     
     # Feedback
+    st.subheader("Feedback")
     feedback = st.slider("Rate this answer (1-5)", 1, 5)
+    comment = st.text_area("Comments", placeholder="Any additional feedback?")
     if st.button("Submit Feedback"):
         with open("feedback.txt", "a") as f:
-            f.write(f"Query: {user_query}, Rating: {feedback}\n")
+            f.write(f"{datetime.now()}: Query: {user_query}, Rating: {feedback}, Comment: {comment}\n")
         st.success("Feedback submitted!")
 
 if __name__ == "__main__":
